@@ -7,28 +7,68 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: "// type your code..."
+      code: `<!DOCTYPE html>
+    <html>
+      <head>
+      <title>Microsoft Graph Toolkit Demo</title>
+      //Necessary library to load components
+      <script src="https://unpkg.com/@microsoft/mgt/dist/bundle/mgt-loader.js"></script>
+      </head>
+
+      <body>
+        <h2>Hello</h2>
+      </body>
+    </html>`,
+      renderCode: "<h2>Hello</h2>"
     };
-    this.start = this.start.bind(this);
+    this.loadLoginComponent = this.loadLoginComponent.bind(this);
+    this.loadAgendaComponent = this.loadAgendaComponent.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
   editorDidMount(editor, monaco) {
     console.log("editorDidMount", editor);
     editor.focus();
   }
   onChange(newValue, e) {
-    console.log("onChange", newValue, e);
+    let edits = newValue.slice(
+      newValue.indexOf("<body>") + 6,
+      newValue.indexOf("</body>")
+    );
+    this.setState({ renderCode: edits, code: newValue });
   }
-  start() {
-    this.setState({
-      code: `<!DOCTYPE html>
+  loadLoginComponent() {
+    let loginHTML = `<!DOCTYPE html>
     <html>
       <head>
       <title>Microsoft Graph Toolkit Demo</title>
+      //Necessary library to load components
+      <script src="https://unpkg.com/@microsoft/mgt/dist/bundle/mgt-loader.js"></script>
       </head>
+
       <body>
+      <h2>Hello</h2>
+      <mgt-mock-provider></mgt-mock-provider>
+      <mgt-login></mgt-login>
       </body>
-    </html>`
-    });
+    </html>`;
+    this.onChange(loginHTML);
+  }
+  loadAgendaComponent() {
+    let loginHTML = `<!DOCTYPE html>
+    <html>
+      <head>
+      <title>Microsoft Graph Toolkit Demo</title>
+      //Necessary library to load components
+      <script src="https://unpkg.com/@microsoft/mgt/dist/bundle/mgt-loader.js"></script>
+      </head>
+
+      <body>
+      <h2>Hello</h2>
+      <mgt-mock-provider></mgt-mock-provider>
+      <mgt-agenda></mgt-agenda>
+      </body>
+    </html>`;
+    this.onChange(loginHTML);
   }
   render() {
     const code = this.state.code;
@@ -39,21 +79,34 @@ class App extends React.Component {
     return (
       <div>
         <div>
-          <Button variant="contained" color="primary" onClick={this.start}>
-            Get Started
-          </Button>
           <div>
             <h2>Demo Area</h2>
-            <div className="demoSpace" />
+            <div
+              className="demoSpace"
+              dangerouslySetInnerHTML={{ __html: this.state.renderCode }}
+            />
           </div>
         </div>
         <div className="editorContainer">
-          <Button variant="contained" color="primary" onClick={this.start}>
-            Login Component
-          </Button>
+          <div className="controlButtons">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.loadLoginComponent}
+            >
+              Login Component
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.loadAgendaComponent}
+            >
+              Agenda Component
+            </Button>
+          </div>
           <h2>Editor</h2>
           <MonacoEditor
-            width="500"
+            width="700"
             height="600"
             language="javascript"
             theme="vs-dark"

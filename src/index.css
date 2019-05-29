@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #51d0de;
 }
 
 code {
@@ -18,9 +19,14 @@ code {
 }
 
 .demoSpace {
+  background-color: white;
   position: absolute;
   left: 0;
   border: 1px solid black;
   height: 800px;
   width: 700px;
+}
+
+.controlButtons {
+  margin: 5px;
 }
