@@ -8,6 +8,7 @@ import { ReactComponent as LoginComponentIcon } from "./LoginComponentIcon.svg";
 import { ReactComponent as PeopleComponentIcon } from "./PeopleComponentIcon.svg";
 import { ReactComponent as PersonComponentIcon } from "./PersonComponentIcon.svg";
 import { ReactComponent as TaskComponentIcon } from "./TaskComponentIcon.svg";
+import { ReactComponent as ComponentListArrowIcon } from "./ComponentListArrowIcon.svg";
 
 class App extends React.Component {
   constructor(props) {
@@ -94,9 +95,9 @@ class App extends React.Component {
                 <GiraffeHero />
               </div>
               <div className="GiraffeHeroText">
-                <h2 className="GiraffeHeroTitleText">
+                <div className="GiraffeHeroTitleText">
                   Microsoft Graph Toolkit
-                </h2>
+                </div>
                 <div className="GiraffeHeroSubtextOne">
                   Collection of web components powered by the Microsoft Graph
                 </div>
@@ -125,6 +126,9 @@ class App extends React.Component {
                   The mgt-agenda web component is used to represent events in a
                   user or group calender.
                 </div>
+                <div className="ComponentListArrowIcon">
+                  <ComponentListArrowIcon />
+                </div>
               </div>
               <div className="ComponentBox">
                 <LoginComponentIcon />
@@ -132,6 +136,9 @@ class App extends React.Component {
                 <div className="ComponentBoxText">
                   A Login Component is a button and flyout control to facilitate
                   Microsoft Identity authentication.
+                </div>
+                <div className="ComponentListArrowIcon">
+                  <ComponentListArrowIcon />
                 </div>
               </div>
               <div className="ComponentBox">
@@ -141,6 +148,9 @@ class App extends React.Component {
                   The mgt-people web component can be used to display a group of
                   people or contacts by using their photos or initials.
                 </div>
+                <div className="ComponentListArrowIcon">
+                  <ComponentListArrowIcon />
+                </div>
               </div>
               <div className="ComponentBox">
                 <PersonComponentIcon />
@@ -148,6 +158,9 @@ class App extends React.Component {
                 <div className="ComponentBoxText">
                   The person component is used to display a person or contact by
                   using their photo, name, and/or email address.
+                </div>
+                <div className="ComponentListArrowIcon">
+                 <ComponentListArrowIcon />
                 </div>
               </div>
               <div className="ComponentBox">
@@ -158,11 +171,40 @@ class App extends React.Component {
                   complete, or edit tasks. It works with any tasks in Microsoft
                   Planner or Microsoft To-Do.
                 </div>
+                <div className="ComponentListArrowIcon">
+                  <ComponentListArrowIcon />
+                </div>
               </div>
             </div>
 
-            <div className="ComponentList">
+            <div className="ProvidersList">
               <p>The Microsoft Graph Toolkit Providers</p>
+              <p className="ProvidersListSecondaryText">Use the providers to enable authentication and graph access for the Microsoft Graph Toolkit components </p>
+            </div>
+
+            <div className="ProvidersArea">
+              <div className="ProviderSection">
+                <a href="#" className="ProviderTitle">
+                mgt-msal-provider
+                </a>
+                <div className="ProviderSecondary">
+                Use msal.js to enable authentication and graph access for the Microsoft Graph Toolkit components.
+                </div>
+                <a href="#" className="ProviderTitle">SharePointProvider</a>
+                <div className="ProviderSecondary">
+                Use msal.js to enable authentication and graph access for the Microsoft Graph Toolkit components.
+                </div>
+              </div>
+              <div className="ProviderSection">
+                <a href="#" className="ProviderTitle">Simple Provider</a>
+                <div className="ProviderSecondary">
+                Create custom provider to enable authentication and graph access for the Microsoft Graph Toolkit components 
+                </div>
+                <a href="#" className="ProviderTitle">mgt-teams-provider</a>
+                <div className="ProviderSecondary">
+                Use msals.js to enable authentication and graph access for the Microsoft Graph Toolkit components.
+                </div>
+              </div>
             </div>
 
             <div
