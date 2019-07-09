@@ -14,6 +14,10 @@
     url(./fonts/SegoePro/SegoePro-Black.ttf) format("TTF");
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   width: 100%;
@@ -24,16 +28,13 @@ code {
     monospace;
 }
 
-.editorContainer {
-  right: 0;
-}
-
 .demoSpace {
-  background-color: white;
-  left: 0;
-  border: 1px solid black;
-  height: 800px;
-  width: 700px;
+  background: rgba(244, 244, 244, 0.828);
+  border: 1px dotted rgba(0, 0, 0, 0.228);
+  box-sizing: border-box;
+  overflow-y: scroll;
+  height: 400px;
+  width: 90%;
 }
 
 .controlButtons {
@@ -113,12 +114,12 @@ code {
   position: relative;
   text-align: left;
   display: inline-block;
-  vertical-align:top;
+  vertical-align: top;
   margin-left: 20px;
   padding: 20px;
   width: 256px;
   min-height: 245px;
-  background-color:#F9F9FB;
+  background-color: #f9f9fb;
 }
 .ComponentBoxTitle {
   margin: 10px 0 15px 0;
@@ -148,19 +149,117 @@ code {
   opacity: 0.66;
 }
 
-.ProvidersListSecondaryText{
+.ProvidersListSecondaryText {
   font-size: 16px;
   line-height: 22px;
   font-weight: normal;
 }
 
-.ComponentListArrowIcon{
-  position:absolute;
-  bottom:0;
-  right:0;
+.ComponentListArrowIcon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   margin: 15px 15px 15px 15px;
 }
 
-.ProviderSection{
+.ProvidersArea {
+  text-align: center;
+}
+.ProviderSection {
   display: inline-block;
+  text-align: left;
+  max-width: 600px;
+  margin: 0px 0px 60px 60px;
+  width: 20%;
+}
+.ProviderTitle {
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 19px;
+  text-decoration: none;
+  color: #0078d4;
+}
+.ProviderSecondary {
+  margin: 10px 0 20px 0;
+  font-family: Segoe Pro;
+  font-size: 14px;
+  line-height: 22px;
+  opacity: 0.7;
+}
+
+.sidenav {
+  position: absolute;
+  width: 15%; /* Set the width of the sidebar */
+  z-index: 1; /* Stay on top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-left: 20px;
+  padding-top: 80px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 0px 8px 6px 16px;
+  text-decoration: none;
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+  color: #0078d4;
+  display: block;
+}
+
+/* Style page content */
+.main {
+  margin-left: 15%; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+.sidenavText {
+  margin: 0 0 0 15px;
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 41px;
+  color: #000000;
+
+  opacity: 0.44;
+}
+
+.sidenavIcon > svg {
+  margin: 0 10px 0 0;
+  vertical-align: middle;
+  transform: scale(0.7);
+}
+.markdownArea {
+  display: block;
+  margin: 60px 60px 60px 60px;
+}
+
+.editorIcon > svg {
+  vertical-align: middle;
+  margin: 20px;
+}
+
+#editorText {
+  margin: 0 0 0 10px;
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25.5378px;
+  line-height: 16px;
 }

@@ -9,10 +9,14 @@ import { ReactComponent as PeopleComponentIcon } from "./PeopleComponentIcon.svg
 import { ReactComponent as PersonComponentIcon } from "./PersonComponentIcon.svg";
 import { ReactComponent as TaskComponentIcon } from "./TaskComponentIcon.svg";
 import { ReactComponent as ComponentListArrowIcon } from "./ComponentListArrowIcon.svg";
+import { jsxElement } from "@babel/types";
+var Remarkable = require("remarkable");
+var md = new Remarkable("full");
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.editorRef = React.createRef();
     this.state = {
       code: `<!DOCTYPE html>
     <html>
@@ -26,7 +30,10 @@ class App extends React.Component {
         <h2>Hello</h2>
       </body>
     </html>`,
-      renderCode: "<h2>Hello</h2>"
+      renderCode: "<h2>Hello</h2>",
+      markdown: "",
+      activeComponent: "",
+      activeIcon: jsxElement
     };
     this.loadLoginComponent = this.loadLoginComponent.bind(this);
     this.loadAgendaComponent = this.loadAgendaComponent.bind(this);
@@ -44,6 +51,20 @@ class App extends React.Component {
     this.setState({ renderCode: edits, code: newValue });
   }
   loadLoginComponent() {
+    window.scrollTo(0, this.editorRef.current.offsetTop);
+    this.setState({
+      activeComponent: "mgt-login",
+      activeIcon: <LoginComponentIcon />
+    });
+    let getMarkdown = () => {
+      const request = new Request(
+        "https://raw.githubusercontent.com/microsoftgraph/microsoft-graph-toolkit/master/docs/components/login.md"
+      );
+      return fetch(request)
+        .then(response => response.text())
+        .then(responsetext => this.renderMarkDown(responsetext));
+    };
+    getMarkdown();
     let loginHTML = `<!DOCTYPE html>
     <html>
       <head>
@@ -61,6 +82,20 @@ class App extends React.Component {
     this.onChange(loginHTML);
   }
   loadAgendaComponent() {
+    window.scrollTo(0, this.editorRef.current.offsetTop);
+    this.setState({
+      activeComponent: "mgt-agenda",
+      activeIcon: <AgendaComponentIcon />
+    });
+    let getMarkdown = () => {
+      const request = new Request(
+        "https://raw.githubusercontent.com/microsoftgraph/microsoft-graph-toolkit/master/docs/components/agenda.md"
+      );
+      return fetch(request)
+        .then(response => response.text())
+        .then(responsetext => this.renderMarkDown(responsetext));
+    };
+    getMarkdown();
     let loginHTML = `<!DOCTYPE html>
     <html>
       <head>
@@ -77,6 +112,13 @@ class App extends React.Component {
     </html>`;
     this.onChange(loginHTML);
   }
+
+  renderMarkDown(markdown) {
+    if (markdown) {
+      this.setState({ markdown: md.render(markdown) });
+    }
+  }
+
   render() {
     const code = this.state.code;
     const options = {
@@ -119,7 +161,7 @@ class App extends React.Component {
               <p>The toolkit currently includes the following components:</p>
             </div>
             <div className="ComponentBoxList">
-              <div className="ComponentBox">
+              <div className="ComponentBox" onClick={this.loadAgendaComponent}>
                 <AgendaComponentIcon />
                 <div className="ComponentBoxTitle">mgt-agenda</div>
                 <div className="ComponentBoxText">
@@ -130,7 +172,7 @@ class App extends React.Component {
                   <ComponentListArrowIcon />
                 </div>
               </div>
-              <div className="ComponentBox">
+              <div className="ComponentBox" onClick={this.loadLoginComponent}>
                 <LoginComponentIcon />
                 <div className="ComponentBoxTitle">mgt-login</div>
                 <div className="ComponentBoxText">
@@ -160,7 +202,7 @@ class App extends React.Component {
                   using their photo, name, and/or email address.
                 </div>
                 <div className="ComponentListArrowIcon">
-                 <ComponentListArrowIcon />
+                  <ComponentListArrowIcon />
                 </div>
               </div>
               <div className="ComponentBox">
@@ -179,57 +221,118 @@ class App extends React.Component {
 
             <div className="ProvidersList">
               <p>The Microsoft Graph Toolkit Providers</p>
-              <p className="ProvidersListSecondaryText">Use the providers to enable authentication and graph access for the Microsoft Graph Toolkit components </p>
+              <p className="ProvidersListSecondaryText">
+                Use the providers to enable authentication and graph access for
+                the Microsoft Graph Toolkit components{" "}
+              </p>
             </div>
 
             <div className="ProvidersArea">
               <div className="ProviderSection">
                 <a href="#" className="ProviderTitle">
-                mgt-msal-provider
+                  mgt-msal-provider
                 </a>
                 <div className="ProviderSecondary">
-                Use msal.js to enable authentication and graph access for the Microsoft Graph Toolkit components.
+                  Use msal.js to enable authentication and graph access for the
+                  Microsoft Graph Toolkit components.
                 </div>
-                <a href="#" className="ProviderTitle">SharePointProvider</a>
+                <a href="#" className="ProviderTitle">
+                  SharePointProvider
+                </a>
                 <div className="ProviderSecondary">
-                Use msal.js to enable authentication and graph access for the Microsoft Graph Toolkit components.
+                  Use msal.js to enable authentication and graph access for the
+                  Microsoft Graph Toolkit components.
                 </div>
               </div>
               <div className="ProviderSection">
-                <a href="#" className="ProviderTitle">Simple Provider</a>
+                <a href="#" className="ProviderTitle">
+                  SimpleProvider
+                </a>
                 <div className="ProviderSecondary">
-                Create custom provider to enable authentication and graph access for the Microsoft Graph Toolkit components 
+                  Create custom provider to enable authentication and graph
+                  access for the Microsoft Graph Toolkit components
                 </div>
-                <a href="#" className="ProviderTitle">mgt-teams-provider</a>
+                <a href="#" className="ProviderTitle">
+                  mgt-teams-provider
+                </a>
                 <div className="ProviderSecondary">
-                Use msals.js to enable authentication and graph access for the Microsoft Graph Toolkit components.
+                  Use msals.js to enable authentication and graph access for the
+                  Microsoft Graph Toolkit components.
                 </div>
               </div>
             </div>
-
+          </div>
+          <div className="sidenav">
+            <div className="sidenavText">Components:</div>
+            <a href="#">
+              <span className="sidenavIcon">
+                <AgendaComponentIcon />
+              </span>
+              mgt-agenda
+            </a>
+            <a href="#">
+              <span className="sidenavIcon">
+                <LoginComponentIcon />
+              </span>
+              mgt-login
+            </a>
+            <a href="#">
+              <span className="sidenavIcon">
+                <PeopleComponentIcon />
+              </span>
+              mgt-people
+            </a>
+            <a href="#">
+              <span className="sidenavIcon">
+                <PersonComponentIcon />
+              </span>
+              mgt-person
+            </a>
+            <a href="#">
+              <span className="sidenavIcon">
+                <TaskComponentIcon />
+              </span>
+              mgt-tasks
+            </a>
+            <div className="sidenavText">Providers:</div>
+            <a href="#">mgt-msal-provider</a>
+            <a href="#">SharePointProvider</a>
+            <a href="#">SimpleProvider</a>
+            <a href="#">mgt-teams-provider</a>
+          </div>
+          <div className="main">
+            <div className="editorContainer">
+              <div className="controlButtons" />
+              <div className="editorIcon">
+                {this.state.activeIcon}
+                <span ref={this.editorRef} id="editorText">
+                  {this.state.activeComponent
+                    ? this.state.activeComponent
+                    : "editor"}
+                </span>
+              </div>
+              <MonacoEditor
+                width="90%"
+                height="400"
+                language="javascript"
+                theme="vs-light"
+                value={code}
+                options={options}
+                onChange={this.onChange}
+                editorDidMount={this.editorDidMount}
+              />
+            </div>
+            <h2>Preview:</h2>
             <div
               className="demoSpace"
               dangerouslySetInnerHTML={{ __html: this.state.renderCode }}
             />
           </div>
         </div>
-        <div className="editorContainer">
-          <div className="controlButtons">
-            <button onClick={this.loadLoginComponent}>Login Component</button>
-            <button onClick={this.loadAgendaComponent}>Agenda Component</button>
-          </div>
-          <h2>Editor</h2>
-          <MonacoEditor
-            width="700"
-            height="600"
-            language="javascript"
-            theme="vs-dark"
-            value={code}
-            options={options}
-            onChange={this.onChange}
-            editorDidMount={this.editorDidMount}
-          />
-        </div>
+        <div
+          className="markdownArea"
+          dangerouslySetInnerHTML={{ __html: this.state.markdown }}
+        />
       </div>
     );
   }
